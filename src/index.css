@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #070b16;
+  color: #e8edf7;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Foco visível e acessível em todos os elementos interativos */
+:focus-visible {
+  outline: 3px solid #facc15;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer utilities {
+  .text-sombra {
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+  }
+  .scrollbar-fina::-webkit-scrollbar {
+    width: 8px;
+  }
+  .scrollbar-fina::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+  }
+  .scrollbar-fina::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
