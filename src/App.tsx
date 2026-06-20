@@ -12,7 +12,7 @@ import {
 import { EcraInicial } from './components/EcraInicial';
 import { EcraGrupos } from './components/EcraGrupos';
 import { EcraPreJogo } from './components/EcraPreJogo';
-import { EcraPartida } from './components/EcraPartida';
+import { JogoFutebol } from './components/JogoFutebol';
 import { EcraPenaltis } from './components/EcraPenaltis';
 import { EcraFinal } from './components/EcraFinal';
 import { Quadro } from './components/Quadro';
@@ -168,7 +168,7 @@ export default function App() {
 
     if (vista === 'partida' && ctx) {
       return (
-        <EcraPartida
+        <JogoFutebol
           key={`${ctx.casaId}-${ctx.foraId}-${estado.faseAtual}`}
           casaId={ctx.casaId}
           foraId={ctx.foraId}

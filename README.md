@@ -1,11 +1,29 @@
 # Caminho para a Glória — Copa 2026 ⚽🏆
 
-Um **simulador-treinador** de torneio inspirado no Mundial de 2026, totalmente em
-**português de Portugal**. Escolhes uma seleção, defines a tática antes de cada jogo,
-vês a partida ser narrada ao minuto e tomas decisões durante o jogo — do sorteio até
-erguer o troféu.
+Um **jogo de futebol jogável** num torneio inspirado no Mundial de 2026, totalmente em
+**português de Portugal**. Escolhes uma seleção, defines a tática e **jogas tu próprio
+cada partida** num campo 2D em tempo real — do sorteio até erguer o troféu.
 
-> 100% no cliente, sem backend. Toda a interface, narração e nomes estão em português.
+> 100% no cliente, sem backend. **Baseado em perícia, não na sorte**: o resultado das
+> tuas partidas depende exclusivamente da forma como jogas.
+
+---
+
+## 🎮 Como se joga uma partida
+
+Cada jogo é disputado num campo 2D visto de cima. Controlas o jogador com o **anel
+amarelo** (o da tua equipa mais próximo da bola — a seleção é automática).
+
+- **Mover:** `WASD` / setas (teclado) ou o **joystick** no canto inferior esquerdo (telemóvel).
+- **Driblar:** a bola cola-se ao teu jogador enquanto te moves.
+- **Rematar / passar:** `Espaço` (teclado) ou o botão **CHUTAR** (telemóvel).
+  **Mantém premido** para carregar mais força — a barra mostra a potência. A bola sai na
+  direção em que estás virado, por isso **a tua pontaria decide tudo**.
+- **Defender / roubar:** leva o teu jogador até à bola para a recuperar ao adversário.
+- **Marcar golo:** ultrapassa a defesa e bate o guarda-redes apontando ao canto contrário.
+
+Não há rolar de dados: seleções mais fortes têm jogadores mais rápidos e defesas mais
+sólidas (mais difíceis), mas **batíveis com boa jogada**.
 
 ---
 
@@ -17,12 +35,15 @@ erguer o troféu.
   (diferença de golos → golos marcados → confronto direto → fair-play → sorteio).
 - Apuramento dos **2 primeiros de cada grupo + 8 melhores terceiros** (32 equipas).
 - **Eliminatórias** da Ronda dos 32 até à Final, com **jogo do 3.º lugar**.
-- **Motor de partida ao minuto** com banco variado de frases de narração, placar e relógio.
+- **Partidas jogáveis em tempo real** (motor de futebol 2D próprio), com placar, relógio,
+  física da bola e IA das equipas — sem qualquer aleatoriedade.
 - Antes de cada jogo: escolha de **formação** (4-3-3, 4-4-2, 4-2-3-1, 3-5-2, 5-3-2) e
-  **mentalidade** (defensiva / equilibrada / ofensiva).
-- Durante o jogo: até **3 decisões táticas** que alteram as probabilidades.
-- Empates nas eliminatórias → **prolongamento** → **mini-jogo de grandes penalidades**
-  interativo (escolhe o canto e acerta na barra de precisão; defende escolhendo o lado).
+  **mentalidade** (defensiva / equilibrada / ofensiva), que alteram a posição da tua equipa.
+- Durante o jogo: até **3 ajustes táticos** de mentalidade ao vivo.
+- Empates nas eliminatórias → **mini-jogo de grandes penalidades** interativo (escolhe o
+  canto e acerta na barra de precisão; defende escolhendo o lado).
+- Os jogos que não disputas são resolvidos de forma **determinística pela força** das
+  equipas — nada fica entregue à sorte.
 - **Quadro/bracket** visual com o percurso do jogador destacado.
 - Ecrã de **campeão** com celebração (ou de eliminação com resumo do percurso).
 - **Persistência** em `localStorage`: continua o torneio onde ficaste; botão de recomeçar.
@@ -84,10 +105,11 @@ vercel --prod # produção
 ```
 src/
   data/        selecoes.ts, potes.ts, tipos.ts   (dados e tipos)
-  engine/      sorteio, classificacao, motorPartida,
-               eliminatorias, penaltis, narracao, aleatorio
+  engine/      sorteio, classificacao, eliminatorias, penaltis,
+               motorFutebol (jogo 2D em tempo real),
+               resolverDeterministico (jogos de fundo), aleatorio
   state/       useJogo.ts  (estado global + save/load)
-  components/  EcraInicial, EcraGrupos, EcraPreJogo, EcraPartida,
+  components/  EcraInicial, EcraGrupos, EcraPreJogo, JogoFutebol,
                EcraPenaltis, Quadro, EcraFinal, TabelaClassificacao, ui/
   App.tsx, main.tsx
 ```

@@ -8,12 +8,11 @@ import type {
   RondaId,
 } from '../data/tipos';
 import { gerarSorteio, grupoDoJogador } from '../engine/sorteio';
+import type { Marcador } from '../engine/motorPartida';
 import {
-  ConfigEquipa,
-  simularEliminatoriaCompleta,
-  simularJogoCompleto,
-  type Marcador,
-} from '../engine/motorPartida';
+  resolverEliminatoria,
+  resolverJogo,
+} from '../engine/resolverDeterministico';
 import {
   avancarQuadro,
   calcularApuramento,
@@ -81,10 +80,7 @@ function simularJogosDeFundoGrupos(grupos: Grupo[], idJogador: string) {
     g.jogos.forEach((j) => {
       if (j.jogado) return;
       if (j.casaId === idJogador || j.foraId === idJogador) return;
-      const r = simularJogoCompleto(
-        { id: j.casaId, vantagemCampo: true },
-        { id: j.foraId },
-      );
+      const r = resolverJogo(j.casaId, j.foraId);
       aplicarResultadoJogo(j, r);
     });
   });
@@ -240,9 +236,7 @@ function prepararRonda(estado: EstadoJogo, ronda: RondaId) {
 }
 
 function simularConfrontoIA(c: Confronto) {
-  const casa: ConfigEquipa = { id: c.casaId!, vantagemCampo: false };
-  const fora: ConfigEquipa = { id: c.foraId! };
-  const r = simularEliminatoriaCompleta(casa, fora);
+  const r = resolverEliminatoria(c.casaId!, c.foraId!);
   c.golosCasa = r.golosCasa;
   c.golosFora = r.golosFora;
   c.penCasa = r.penCasa;
